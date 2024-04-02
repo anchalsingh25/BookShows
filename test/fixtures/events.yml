@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  category: MyString
+  startTime: 2024-03-28 21:13:32
+  endTime: 2024-03-28 21:13:32
+  date: 2024-03-28
+
+two:
+  title: MyString
+  description: MyText
+  category: MyString
+  startTime: 2024-03-28 21:13:32
+  endTime: 2024-03-28 21:13:32
+  date: 2024-03-28
