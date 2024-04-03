@@ -36,12 +36,6 @@ class Api::V1::LocationsController < ApplicationController
     params.require(:location).permit(:city)
   end
 
-  def check_admin
-    return if current_user.admin?
-
-    render json: { error: 'Only admins are allowed to set location' }, status: :forbidden
-  end
-
   def set_location
     @location = Location.find_by_id(params[:id])
     return render json: { error: 'location not found' }, status: :not_found if @location.nil?

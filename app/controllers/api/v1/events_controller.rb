@@ -2,6 +2,7 @@ module Api
   module V1
     class EventsController < ApplicationController
       before_action :authorized
+      before_action :check_admin, only: %i[create update destroy]
       before_action :set_event, only: %i[show update destroy]
 
       def index
@@ -13,34 +14,14 @@ module Api
         render json: @event
       end
 
-      # def create
-      #   if current_user.admin?
-      #     event = Event.new(event_params)
-      #     event.user_id = current_user.id
-      #     if event.save
-      #       render json: event, status: :created
-      #     else
-      #       render json: event.errors, status: :unprocessable_entity
-      #     end
-      #   else
-      #     render json: { error: 'Only admins are allowed to create events' }, status: :forbidden
-      #   end
-      # end
-
       def create
-        unless current_user.admin?
-          return render json: { error: 'Only admins are allowed to create events' }, status: :forbidden
-        end
-
         event = current_user.events.build(event_params)
-
         if event.save
           render json: event, status: :created
         else
           render json: event.errors, status: :unprocessable_entity
         end
       end
-
 
       def update
         if @event.update(event_params)

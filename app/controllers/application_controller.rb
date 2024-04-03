@@ -21,7 +21,13 @@ class ApplicationController < ActionController::API
   def current_user
     return @user if defined?(@user)
     return nil unless verify_authenticated
+
     @user
   end
 
+  def check_admin
+    return if current_user.admin?
+
+    render json: { error: 'Only admins are allowed to do this action.' }, status: :forbidden
+  end
 end
